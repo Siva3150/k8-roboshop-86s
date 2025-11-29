@@ -1,21 +1,22 @@
 apiVersion: v1 
 kind: ConfigMap 
 metadata: 
- name: catalogue 
+ name: user 
  namespace: roboshop 
 data: 
- MONGO: "true" 
- MONGO_URL: "mongodb://mongodb:27017/catalogue"
+  MONGO: "true"
+  REDIS_URL: "redis://redis:6379"
+  MONGO_URL: "mongodb://mongodb:27017/users"
 ---
 apiVersion: apps/v1 
 kind: Deployment 
 metadata: 
- name: catalogue 
+ name: user 
  namespace: roboshop
  labels: 
  # these are replica set labels 
   project: roboshop
-  component: catalogue
+  component: user
   tier: backend
 spec:
  replicas: 1 
@@ -23,22 +24,22 @@ spec:
   matchLabels:
   # these labels are used to select pods
     project: roboshop
-    component: catalogue
+    component: user
     tier: backend 
  template: 
   metadata:
    labels:
     project: roboshop
-    component: catalogue
+    component: user
     tier: backend
   spec:
    containers: 
-    - name: catalogue 
-      image: siva3150/catalogue:v1 
+    - name: user 
+      image: siva3150/user:v1 
       imagePullPolicy: Always 
       envFrom: 
       - configMapRef: 
-         name: catalogue 
+         name: user 
       ports:
        - name: liveness-port
          containerPort: 8080
@@ -59,18 +60,20 @@ spec:
  apiVersion: v1 
  kind: Service 
  metadata: 
-  name: catalogue 
+  name: user 
   namespace: roboshop 
  spec: 
   selector: 
    project: roboshop
-   component: catalogue 
+   component: user 
    tier: backend  
   ports:
    - protocol: TCP 
      port: 8080 # service port 
      targetPort: 8080 # container port 
 
+
+     
 
      
    
