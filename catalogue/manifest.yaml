@@ -37,8 +37,8 @@ spec:
       image: siva3150/catalogue:v1 
       imagePullPolicy: Always 
       envFrom: 
-       - ConfigMapRef: 
-          name: catalogue 
+      - ConfigMapRef: 
+         name: catalogue 
       ports:
        - name: liveness-port
          containerPort: 8080
