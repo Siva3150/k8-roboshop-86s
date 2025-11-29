@@ -17,17 +17,17 @@ spec:
    component: mongodb
    tier: db 
   # pod definition
-  template: 
-   metadata: 
-     labels: 
-      project: roboshop
-      component: mongodb
-      tier: db 
-   spec: 
-    containers: 
-     name: mongodb 
-     image: siva3150/mongodb:v1 
-     imagePullPolicy: Always 
+ template: 
+  metadata: 
+    labels: 
+     project: roboshop
+     component: mongodb
+     tier: db 
+  spec: 
+   containers: 
+     - name: mongodb 
+       image: siva3150/mongodb:v1 
+       imagePullPolicy: Always 
 
    
    
