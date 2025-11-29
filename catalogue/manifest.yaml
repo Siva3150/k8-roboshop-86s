@@ -8,7 +8,8 @@ metadata:
   project: roboshop
   component: mongodb
   tier: db 
-spec: 
+spec:
+ replicas: 1 
  selector: 
   matchLabels:
   # these labels are used to select pods
